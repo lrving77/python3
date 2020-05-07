@@ -1,0 +1,300 @@
+#!/bin/bash/python3
+# -*- coding:UTF-8 -*-
+#file_name:study-python
+
+#============Python3函数============
+函数是组织好的,可重复使用的,用来实现单一,或相关联功能的代码段
+函数能提高应用的模块性,和代码的重复利用率
+
+
+#定义一个函数
+定义一个由自己想要功能的函数,以下是简单的规则:
+函数代码块以"def"关键词开头,后接函数标识符名称和圆括号()
+任何传入参数和自变量必须放在圆括号中间,圆括号之间可以用于定义参数
+函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明
+函数内容以冒号起始,并且缩进
+return [表达式] 结束函数,选择性地返回一个值给调用方;不带表达式的return相当于返回 None
+同一个函数执行过程中只能执行一次return语句,执行return语句后,return后面的内容将不再执行,函数执行完毕
+def fib(n):
+    a, b = 0, 1
+    while a < n:
+        print(a,end=" ")
+        a, b = b, a+b
+    print(f'循环结束{a}>{n}')
+fib(2019)
+输出结果为:
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 循环结束2584>2019
+
+#函数的语法
+def 函数名(参数列表):
+    参数体
+
+(默认情况下,参数值和参数名称是按函数声明中定义的顺序匹配起来的)
+
+#创建一个简单的函数
+def first():
+    print("This is a function")
+
+first()   #调用函数
+
+输出结果为:
+This is a function
+
+
+#函数中带上参数变量
+def test(a,b):
+    x = a + b
+    y = a * b
+    return x,y
+
+z = test(10,5)
+print(z)
+输出结果为:
+(15, 50)
+
+#形参和实参
+根据上诉的函数带参数变量中;(a,b)就是我们所说的形参,(10,5)就是实参
+
+#默认参数
+有时候,有些函数的一些参数是可选的,如果用户不提供该参数,就会存在一个默认值
+def nl(age=18):
+    print(f'I am {age} year old')
+
+nl()    #输出默认参数的表达式
+nl(25)  #输出自定义参数的表达式
+输出结果为:
+I am 18 year old
+I am 25 year old
+
+
+#函数调用
+定义一个函数:给了函数一个名称,指定了函数里包含的参数,和代码块结构
+这个函数的基本结构完成以后,你可以通过另一个函数调用执行,也可以直接从Python命令提示符执行
+
+def one(zifu):
+    #打印传输的任何字符串
+    print(zifu)
+    return
+
+one("This is a test")    #调用执行创建的函数
+one("调用函数")
+
+输出结果为:
+This is a test
+调用函数
+
+#参数传递
+在python中,类型属于对象,变量是没有类型的
+a = ['lakers','james',23,'cavaliers','lrving',2]
+a = 'lebronjames'
+以上代码中a回一个列表list类型和字符串类型;但是变量是没有类型的,它仅仅是一个对象的引用,可以是指向list类型,也可以是指向string类型对象
+
+可更改(mutable)与不可更改(immutable)对象
+在python3中string,tuple和number是不可变的对象,而list,dict是可以修改的对象
+不可变类型: 变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10,再让 a 指向它，而 5 被丢弃,不是改变a的值,相当于新生成了a
+可变类型: 变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改,本身la没有动,只是其内部的一部分值被修改了
+
+python3函数的参数传递:
+不可变类型: 类似 c++ 的值传递,如 整数,字符串,元组;如fun(a)传递的只是a的值,没有影响a对象本身;比如在fun(a)内部修改 a 的值,只是修改另一个复制的对象,不会影响 a 本身
+可变类型: 类似 c++ 的引用传递,如 列表,字典;如 fun(la),则是将 la 真正的传过去,修改后fun外部的la也会受影响
+
+python中一切都是对象,严格意义上我们应该说传不可变对象和传可变对象
+
+
+#python 传不可变对象实例
+def changeint(a):
+    a = 20
+
+b = 2
+changeint(b)
+print(b)
+输出结果为:
+2
+
+说明: 实例中有int对象2,指向它的变量是b,在传递给ChangeInt函数时,按传值的方式复制了变量b, a和b都指向了同一个Int对象,
+     在a=10时,则新生成一个int值对象10,并让a指向它
+
+#传可变对象实例
+可变对象在函数里修改了参数,那么在调用这个函数的函数时,原始的参数也被改变了
+def change(list):
+    list.append(['lakers','james',23])
+    print("函数内取值: ",list)
+
+list = ['cavaliers','lrving',2]
+change(list)
+print("函数外取值: ",list)
+输出结果为:
+函数内取值:  ['cavaliers', 'lrving', 2, ['lakers', 'james', 23]]
+函数外取值:  ['cavaliers', 'lrving', 2, ['lakers', 'james', 23]]
+
+
+#Python3参数
+调用函数时可使用的正式参数类型:
+1、必需参数
+2、关键字参数
+3、默认参数
+4、不定长参数
+
+#必须参数
+必须参数使用正确的顺序传入函数,调用时的数量必须和声明时的一样
+调用 promise() 函数,你必须传入一个参数,不然会出现语法错误
+
+def promise(str):
+    print(str)
+    return
+
+promise()
+输出结果为:
+Traceback (most recent call last):
+  File "/Users/liwenfeng/PycharmProjects/Python/study.py", line 596, in <module>
+    promise()
+TypeError: promise() missing 1 required positional argument: 'str'
+
+
+#关键字参数
+关键字参数和函数调用关系紧密,函数调用使用关键字参数来确定传入的参数值
+使用关键字参数允许函数调用时参数的顺序与声明时不一致,因为 Python 解释器能够用参数名匹配参数值
+def swap(str):
+    print(str)
+    return
+
+swap(str="关键字参数测试")
+swap(str=100)
+输出结果为:
+关键字参数测试
+100
+
+#函数参数的使用不需要指定顺序
+def swap(team,name,age):
+    print("球队名称: ",team)
+    print("球员名字: ",name)
+    print("球员年龄: ",age)
+    return
+
+swap(name='james',team="lakers",age=34)
+输出结果为:
+球队名称:  lakers
+球员名字:  james
+球员年龄:  34
+
+#默认参数
+调用函数时,如果没有传递参数,则会使用默认设置的参数
+重要: python函数中的所有默认参数的字段均应该写在不含默认值参数的后面
+
+def swap(name,age,number,team='lakers',hight=2.03):    #设置team的默认值为lakers
+    print("球队名称: ",team)
+    print("球员名字: ",name)
+    print("球员年龄: ",age)
+    print("球衣号码: ",number)
+    print("球员身高: ",hight)
+    return
+swap(name='james',age=34,number=23)   #没有给team和hight参数赋值,默认参数直接输出,可以不用赋值
+输出结果为:
+球队名称:  lakers  #默认输出
+球员名字:  james
+球员年龄:  34
+球衣号码:  23
+球员身高:  2.03    #默认输出
+
+
+#不定长参数
+你可能需要一个函数能处理比当初声明时更多的参数;这些参数叫做不定长参数,和上述2种参数不同,声明时不会命名
+
+加了星号 * 的参数会以元组(tuple)的形式导入,存放所有未命名的变量参数
+def swap(arg, *tuple):
+    print(arg)
+    print(tuple)
+    return
+swap('lakers','james',23)
+输出结果为:
+lakers
+('james', 23)
+
+如果在函数调用时没有指定参数,它就是一个空元组;我们也可以不向函数传递未命名的变量
+def swap(arg, *tuple):
+    print(arg)
+    for x in tuple:
+        print(x)
+    return
+swap('lakers')
+swap('james',23,'wade',3)
+输出结果为:
+lakers
+james
+23
+wade
+3
+
+加了两个星号 ** 的参数会以字典的形式导入
+def swap(arg, **dict):
+    print(arg)
+    print(dict)
+    return
+
+swap('lakers',name='james',age=34)
+输出结果为:
+lakers
+{'name': 'james', 'age': 34}
+
+声明函数时,参数中星号 * 可以单独出现
+def swap(team,*,name,age,number):
+    print(team,name,age,number)
+    return
+
+swap('lakers','james',34,23)
+输出结果为:
+Traceback (most recent call last):
+  File "/Users/liwenfeng/PycharmProjects/Python/study.py", line 644, in <module>
+    swap('lakers','james',34,23)
+TypeError: swap() takes 1 positional argument but 4 were given
+这是如果 * 号后面的参数没有关键字传入时,函数的输出会报错,所以下面将* 号后面的参数都加上关键字后,显示的结果就是正常的
+
+swap('lakers',name='james',age=34,number=23)
+输出结果为:
+lakers james 34 23
+
+#匿名函数
+python 使用 lambda 来创建匿名函数
+所谓匿名,意即不再使用 def 语句这样标准的形式定义一个函数
+1、lambda 只是一个表达式,函数体比 def 简单很多
+2、lambda的主体是一个表达式,而不是一个代码块;仅仅能在lambda表达式中封装有限的逻辑进去
+3、lambda 函数拥有自己的命名空间,且不能访问自己参数列表之外或全局命名空间里的参数
+4、lambda函数看起来只能写一行,却不等同于C或C++的内联函数,后者的目的是调用小函数时不占用栈内存从而增加运行效率
+
+语法
+lambda 函数的语法只包含一个语句
+lambda [arg1 [,arg2,.....argn]]:expression
+
+示例:
+swap = lambda x, y: x + y
+print(swap(10,30))
+
+输出结果为:
+40
+
+#return语句
+return[表达式]语句用于退出函数,选择性地向调用方返回一个表达式;不带参数值的return语句返回None
+def swap(x,y):
+    a = x + y
+    print("函数中取得的值: ",a)
+    return a
+b = swap(20,30)
+print("执行函数后取得的值: ",b)
+输出结果为:
+函数中取得的值:  50
+执行函数后取得的值:  50
+
+#强制位置参数
+Python3.8 新增了一个函数形参语法 / 用来指明函数形参必须使用指定位置参数,不能使用关键字参数的形式
+在以下的例子中,形参 a 和 b 必须使用指定位置参数, c 或 d 可以是位置形参或关键字形参, 而 e 或 f 要求为关键字形参
+
+def swap(a, b, /, c, d, *, e, f):
+    print(a,b,c,d,e,f)
+
+swap(10,20,30,40,e=50,f=60)
+
+输出结果为:
+10 20 30 40 50 60
+
+说明: 以上示例表明在使用函数填写参数时必须按照函数指定的参数的位置进行填参,否则就会报错
+
